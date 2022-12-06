@@ -144,12 +144,6 @@ namespace TestGeneratorLib
                 .WithUsings(getUsingDirectives(classInfo))
                 .WithMembers(SyntaxFactory.SingletonList<MemberDeclarationSyntax>(GetNamespaceDeclaration(classInfo)
                          .WithMembers(SyntaxFactory.SingletonList<MemberDeclarationSyntax>(SyntaxFactory.ClassDeclaration(classInfo.ClassName + "Tests")
-                              .WithAttributeLists(
-                                   SyntaxFactory.SingletonList<AttributeListSyntax>(
-                                   SyntaxFactory.AttributeList(
-                                        SyntaxFactory.SingletonSeparatedList<AttributeSyntax>(
-                                             SyntaxFactory.Attribute(
-                                                  SyntaxFactory.IdentifierName("TestClass"))))))
                               .WithModifiers(SyntaxFactory.TokenList(SyntaxFactory.Token(SyntaxKind.PublicKeyword)))
                               .WithMembers(GetMembersDeclarations(classInfo))))
                         )
@@ -189,7 +183,7 @@ namespace TestGeneratorLib
         {
             List<MemberDeclarationSyntax> methods = new List<MemberDeclarationSyntax>();
 
-            methods.Add(getMethodDeclaration("Initialize", "TestInitialize", new List<StatementSyntax>()));
+            methods.Add(getMethodDeclaration("SetUp", "SetUp", new List<StatementSyntax>()));
             foreach (MethodInfo method in classInfo.Methods)
             {
                 List<StatementSyntax> bodyMembers = new List<StatementSyntax>();
@@ -198,7 +192,7 @@ namespace TestGeneratorLib
                      SyntaxFactory.InvocationExpression(
                           GetAssertFail())
                                .WithArgumentList(GetMemberArgs())));
-                methods.Add(getMethodDeclaration(method.Name + "Test", "TestMethod", bodyMembers));
+                methods.Add(getMethodDeclaration(method.Name + "Test", "Test", bodyMembers));
             }
             return new SyntaxList<MemberDeclarationSyntax>(methods);
         }
