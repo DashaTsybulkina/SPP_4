@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace TestForTestGenerator
 {
-    public class Tests
+    public class UnitTest1
     {
         private CompilationUnitSyntax root;
 
